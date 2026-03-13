@@ -11,6 +11,8 @@
 
 `connaxis` 的定位是一个面向网关/代理和长连接场景的 Linux-first Go 网络运行时，内置 `TLS/kTLS` 与 `WS/WSS` 支持。
 
+在更常见的 Go 服务实现里，HTTP/TLS/WebSocket 往往建立在每连接 goroutine 的阻塞式处理路径上，而 WebSocket 部署中也经常会演化成每连接分别维护读写 goroutine。`connaxis` 的目标，是尽量把这些长连接协议路径保留在事件驱动一侧，从而减少每连接 goroutine、调度和栈内存开销。
+
 相比主要优化纯 TCP event-loop 吞吐的项目，`connaxis` 更强调协议集成和验证：
 
 - 面向 TCP/HTTP/WebSocket 的事件驱动核心

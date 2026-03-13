@@ -11,6 +11,8 @@ The project targets high-connection-count workloads such as gateways, proxies, a
 
 `connaxis` is positioned as a Linux-first Go networking runtime for gateway/proxy and long-lived connection scenarios, with integrated `TLS/kTLS` and `WS/WSS` support.
 
+In more conventional Go server designs, HTTP/TLS/WebSocket handling is typically built on blocking per-connection goroutine paths, and WebSocket deployments often end up with separate read/write goroutines per connection. `connaxis` aims to keep these long-lived protocol paths on the event-driven side instead, reducing per-connection goroutine, scheduling, and stack-memory overhead.
+
 Compared with projects that mainly optimize plain TCP event-loop throughput, `connaxis` focuses on protocol integration and validation:
 
 - event-driven core for TCP/HTTP/WebSocket workloads
